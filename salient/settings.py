@@ -26,6 +26,13 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    BASE_DIR + '/templates/',
+    BASE_DIR + '/core/templates/',
+    BASE_DIR + '/analyzer/templates/',
+    BASE_DIR + '/accounts/templates/',
+)
+
 
 # Application definition
 
@@ -36,6 +43,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'debug_toolbar',
+    'analyzer',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,8 +68,12 @@ WSGI_APPLICATION = 'salient.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'salient',
+        'USER': 'salient',
+        'PASSWORD': 'salient',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
