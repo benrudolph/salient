@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.core.context_processors import csrf
 
 from .forms import UserForm
@@ -14,9 +14,11 @@ def register(request):
 
     if form.is_valid():
       user = form.save()
-      return HttpResponseRedirect('/')
 
-    registered = True
+      registered = True
+      messages.success(request, 'Account registered!')
+      return render(request, 'core/home.html', {})
+
   else:
     form = UserForm()
 

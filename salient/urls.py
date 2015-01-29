@@ -6,6 +6,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'salient.views.home', name='home'),
     url(r'^analyzer/', include('analyzer.urls')),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^uploader/', include('uploader.urls')),
+    url(r'^$', include('core.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )

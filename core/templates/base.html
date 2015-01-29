@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <title>My amazing blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     {% load bootstrap3 %}
     {% bootstrap_css %}
+    {% load staticfiles %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/global.css' %}" />
+
+    <script src="{% static 'core/js/vendor/jquery.min.js' %}"></script>
+
     {% bootstrap_javascript %}
 </head>
 
 <body>
-  <div id="content">
+  {% bootstrap_messages %}
+  <div id="content" class="container">
+    {% block nav %}
+    {% include "core/nav.html" %}
+    {% endblock nav %}
     {% block content %}
     {% endblock content %}
   </div>

@@ -31,8 +31,10 @@ TEMPLATE_DIRS = (
     BASE_DIR + '/core/templates/',
     BASE_DIR + '/analyzer/templates/',
     BASE_DIR + '/accounts/templates/',
+    BASE_DIR + '/uploader/templates/',
 )
 
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -96,3 +98,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    BASE_DIR + '/core/static/',
+    #BASE_DIR + '/analyzer/static/',
+    #BASE_DIR + '/accounts/static/',
+    os.path.join(BASE_DIR, "static"),
+)
