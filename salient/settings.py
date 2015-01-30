@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT = BASE_DIR + '/static/uploads/'
+
 TEMPLATE_DIRS = (
     BASE_DIR + '/templates/',
     BASE_DIR + '/core/templates/',
@@ -48,6 +50,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'debug_toolbar',
     'bootstrap3',
+    'accounts',
+    'uploader',
     'analyzer',
 )
 

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Volumes</h1>
+<ul>
+{% for volume in object_list %}
+  <li><a href="/uploader/edit/{{ volume.id }}">{{ volume.name }}</a></li>
+{% empty %}
+  <li>No volumes yet.</li>
+{% endfor %}
+</ul>
+<a href="/uploader/volume/create" class="btn btn-primary">
+  Create Volume
+</a>
+{% endblock %}
+
