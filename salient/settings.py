@@ -28,6 +28,9 @@ ALLOWED_HOSTS = []
 
 MEDIA_ROOT = BASE_DIR + '/static/uploads/'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_FAIL_SILENTLY = not DEBUG
+
 TEMPLATE_DIRS = (
     BASE_DIR + '/templates/',
     BASE_DIR + '/core/templates/',
@@ -48,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'crispy_forms',
     'debug_toolbar',
     'bootstrap3',
     'accounts',

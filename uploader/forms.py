@@ -1,14 +1,16 @@
 from django import forms
 
+from salient.forms import *
+
 from .models import *
 
-class VolumeForm(forms.ModelForm):
+class VolumeForm(SalientForm):
 
   class Meta:
     model = Volume
     fields = ['name']
 
-class DocForm(forms.ModelForm):
+class DocForm(SalientForm):
 
   class Meta:
     model = Doc
