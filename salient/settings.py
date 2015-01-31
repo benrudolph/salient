@@ -28,6 +28,14 @@ ALLOWED_HOSTS = []
 
 MEDIA_ROOT = BASE_DIR + '/static/uploads/'
 
+BOWER_COMPONENTS_ROOT = BASE_DIR + '/components/'
+
+BOWER_INSTALLED_APPS = (
+    'jquery#1.9',
+    'underscore',
+    'knockout',
+)
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CRISPY_FAIL_SILENTLY = not DEBUG
 
@@ -51,6 +59,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'djangobower',
     'crispy_forms',
     'debug_toolbar',
     'bootstrap3',
@@ -101,11 +110,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+BOWER_PATH = '/usr/local/bin/bower'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = (
+    "djangobower.finders.BowerFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder"
+)
 
 STATICFILES_DIRS = (
     BASE_DIR + '/core/static/',
