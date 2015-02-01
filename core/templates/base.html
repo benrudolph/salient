@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My amazing blog</title>
+    <title>Salient</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/global.css' %}" />
 
     <script src="{% static 'jquery/jquery.js' %}"></script>
+    <script src="{% static 'underscore/underscore.js' %}"></script>
+    <script src="{% static 'knockout/dist/knockout.js' %}"></script>
 
     {% bootstrap_javascript %}
 </head>
@@ -26,5 +28,8 @@
     {% block content %}
     {% endblock content %}
   </div>
+  {% block js %}
+    <script src="{% static 'core/js/salient.js' %}"></script>
+  {% endblock js %}
 </body>
 </html>

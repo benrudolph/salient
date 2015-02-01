@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block js %}{{ block.super }}
+    <script src="{% static 'uploader/js/uploader.js' %}"></script>
+{% endblock %}

@@ -125,6 +125,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_DIRS = (
     BASE_DIR + '/core/static/',
+    BASE_DIR + '/uploader/static/',
     #BASE_DIR + '/analyzer/static/',
     #BASE_DIR + '/accounts/static/',
     os.path.join(BASE_DIR, "static"),
