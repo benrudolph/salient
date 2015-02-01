@@ -40,6 +40,6 @@ class DocForm(SalientModelForm):
     widgets = {
       'doc_type': forms.Select(attrs={'data-bind': doc_type_data_bind}),
       'url': forms.TextInput(attrs={'data-bind': 'visible: showUrl'}),
-      'text': forms.TextInput(attrs={'data-bind': 'visible: showInput'}),
+      'text': forms.Textarea(attrs={'data-bind': 'visible: showInput'}),
       'text_file': forms.ClearableFileInput(attrs={'data-bind': 'visible: showTextFile'}),
     }
