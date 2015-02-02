@@ -4,7 +4,7 @@
 <h1>Volumes</h1>
 <ul>
 {% for volume in object_list %}
-  <li><a href="/uploader/edit/{{ volume.id }}">{{ volume.name }}</a></li>
+  <li><a href="/uploader/volume/update/{{ volume.id }}">{{ volume.name }}</a></li>
 {% empty %}
   <li>No volumes yet.</li>
 {% endfor %}

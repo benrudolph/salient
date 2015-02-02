@@ -10,6 +10,27 @@ class VolumeForm(SalientModelForm):
     model = Volume
     fields = ['name']
 
+class VolumeUpdateForm(SalientModelForm):
+
+  def __init__(self, *args, **kwargs):
+    super(VolumeUpdateForm, self).__init__(*args, **kwargs)
+    self.fields['docs'] = forms.ModelMultipleChoiceField(
+      queryset=self.instance.doc_set.all(),
+      widget=forms.CheckboxSelectMultiple(attrs={"checked":""}),
+      help_text="Uncheck documents to remove them from the volume"
+    )
+
+  def save(self, commit=True):
+    instance = super(VolumeUpdateForm, self).save(commit=False)
+    instance.doc_set = self.cleaned_data['docs']
+    if commit:
+        instance.save()
+    return instance
+
+  class Meta:
+    model = Volume
+    fields = ['name']
+
 class DocForm(SalientModelForm):
 
   def __init__(self, *args, **kwargs):
@@ -17,7 +38,7 @@ class DocForm(SalientModelForm):
 
     self.helper.layout = Layout(
         'name',
-        'volume',
+        'volumes',
         'doc_type',
         Div(
             'url',
@@ -32,7 +53,7 @@ class DocForm(SalientModelForm):
 
   class Meta:
     model = Doc
-    fields = ['name', 'volume', 'doc_type', 'text_file', 'text', 'url']
+    fields = ['name', 'volumes', 'doc_type', 'text_file', 'text', 'url']
     doc_type_data_bind = """
         value: docType
         """

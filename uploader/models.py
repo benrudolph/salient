@@ -10,7 +10,7 @@ class Volume(models.Model):
 
 class Doc(models.Model):
   name = models.CharField(max_length=200)
-  volume = models.ForeignKey(Volume)
+  volumes = models.ManyToManyField(Volume, null=True, blank=True)
   user = models.ForeignKey(User)
 
   URL = 'UR'

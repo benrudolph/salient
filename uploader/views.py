@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView, ModelFormMixin
+from django.views.generic.edit import CreateView, ModelFormMixin, UpdateView
 from django.views.generic.list import ListView
 from django.http import HttpResponseRedirect
 
@@ -18,10 +18,15 @@ class VolumeCreateView(CreateView):
 
     return super(ModelFormMixin, self).form_valid(form)
 
-
 class VolumeListView(ListView):
-    template_name = 'uploader/volume/list.html'
-    model = Volume
+  template_name = 'uploader/volume/list.html'
+  model = Volume
+
+class VolumeUpdateView(UpdateView):
+  template_name = 'uploader/volume/update.html'
+  success_url = '/uploader/'
+  model = Volume
+  form_class = VolumeUpdateForm
 
 class DocCreateView(CreateView):
   form_class = DocForm
@@ -32,5 +37,6 @@ class DocCreateView(CreateView):
     self.object = form.save(commit=False)
     self.object.user = self.request.user
     self.object.save()
+    form.save_m2m()
 
     return super(ModelFormMixin, self).form_valid(form)
