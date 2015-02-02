@@ -15,6 +15,8 @@ class VolumeCreateView(CreateView):
     self.object = form.save(commit=False)
     self.object.user = self.request.user
     self.object.save()
+    self.object.doc_set = form.cleaned_data['docs']
+    form.save_m2m()
 
     return super(ModelFormMixin, self).form_valid(form)
 

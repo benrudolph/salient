@@ -6,6 +6,14 @@ from crispy_forms.layout import Layout, Div
 from .models import *
 
 class VolumeForm(SalientModelForm):
+  def __init__(self, *args, **kwargs):
+    super(VolumeForm, self).__init__(*args, **kwargs)
+    self.fields['docs'] = forms.ModelMultipleChoiceField(
+      queryset=Doc.objects.all(),
+      widget=forms.CheckboxSelectMultiple(),
+      help_text="Check documents to add them to the volume"
+    )
+
   class Meta:
     model = Volume
     fields = ['name']
