@@ -5,3 +5,6 @@ django-bootstrap3
 django-debug-toolbar
 django-crispy-forms
 django-bower
+django-redis
+ipdb
+nltk
