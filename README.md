@@ -18,6 +18,14 @@ createdb -U <username to connect as> salient
 createuser -U <username to connect as> -P <password prompt> salient
 ```
 
+### Install Bower
+
+Install [bower](http://bower.io/) for js package management.
+
+```
+./manage.py bower_install
+```
+
 ### Run Django
 
 ```
