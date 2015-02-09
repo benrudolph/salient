@@ -1,4 +1,5 @@
-from django.core.cache import cache
+from nltk import word_tokenize
+from nltk.stem.porter import PorterStemmer
 
 def parse(text):
     """Returns a list of dictionaries. Each dictionary contains:
@@ -9,4 +10,17 @@ def parse(text):
         position: <position word was found>
     }
     """
-    pass
+
+    tokens = word_tokenize(text)
+    stemmer = PorterStemmer()
+
+    result = []
+
+    for i, token in enumerate(tokens):
+        result.append({
+            'word_stemmed': stemmer.stem(token),
+            'word_raw': token,
+            'position': i
+            })
+
+    return result

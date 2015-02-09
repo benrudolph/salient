@@ -15,6 +15,7 @@ Ensure that you have postgres installed. Then create a dev database and dev user
 
 ```
 createdb -U <username to connect as> salient
+createdb -U <username to connect as> test_salient
 createuser -U <username to connect as> -P <password prompt> salient
 ```
 

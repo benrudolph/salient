@@ -36,6 +36,8 @@ BOWER_INSTALLED_APPS = (
     'knockout',
 )
 
+BROKER_URL = 'redis://localhost:6379/0'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CRISPY_FAIL_SILENTLY = not DEBUG
 
