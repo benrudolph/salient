@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div data-bind="template: { name: 'accordion-sidebar-template',
+            foreach: volumes,
+            as: volume }"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}{{ block.super }}
+    <script src="{% static 'visualize/js/visualize.js' %}"></script>
+{% endblock %}
+{% block js_templates %}
+    {% include "core/js_templates/accordion_sidebar.html" %}
+{% endblock %}
+

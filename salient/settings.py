@@ -34,6 +34,7 @@ BOWER_INSTALLED_APPS = (
     'jquery#1.9',
     'underscore',
     'knockout',
+    'sammy',
 )
 
 BROKER_URL = 'redis://localhost:6379/0'
@@ -47,6 +48,7 @@ TEMPLATE_DIRS = (
     BASE_DIR + '/analyzer/templates/',
     BASE_DIR + '/accounts/templates/',
     BASE_DIR + '/uploader/templates/',
+    BASE_DIR + '/visualize/templates/',
 )
 
 LOGIN_REDIRECT_URL = '/'
@@ -141,6 +143,7 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = (
     BASE_DIR + '/core/static/',
     BASE_DIR + '/uploader/static/',
+    BASE_DIR + '/visualize/static/',
     #BASE_DIR + '/analyzer/static/',
     #BASE_DIR + '/accounts/static/',
     os.path.join(BASE_DIR, "static"),
