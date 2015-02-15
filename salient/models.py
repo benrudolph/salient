@@ -43,7 +43,8 @@ class Doc(models.Model):
     return self.name
 
   def save(self, *args, **kwargs):
-    self.text_hash = sha224(self.text or '').hexdigest()
+    if self.text:
+        self.text_hash = sha224(self.text.encode('utf-8')).hexdigest()
     super(Doc, self).save(*args, **kwargs)
 
 class WordDoc(models.Model):

@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url
 
-from analyzer import views
+from .views import DocWordFrequencyAPIView, DocWordXRayAPIView
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
+    (r'^docs/(?P<pk>[0-9]+)/word_frequency$', DocWordFrequencyAPIView.as_view()),
+    (r'^docs/(?P<pk>[0-9]+)/xray$', DocWordXRayAPIView.as_view()),
 )

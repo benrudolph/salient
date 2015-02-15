@@ -24,3 +24,6 @@ def parse(text):
             })
 
     return result
+
+def stem_word(word):
+    return PorterStemmer().stem(word)

@@ -46,7 +46,7 @@ Salient.App = Sammy('#content', function() {
 
     this.before(function() {
         if (!initialized) {
-            Salient.VM.fetchVolumes(volumes, function() {
+            Salient.VM.fetchVolumes(function(volumes) {
                 initialized = true;
             });
         }

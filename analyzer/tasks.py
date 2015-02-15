@@ -9,7 +9,10 @@ from .utils import parse
 def parse_doc(doc):
     word_docs = parse(doc.text)
 
-    WordDoc.objects.bulk_create(
+    for word_doc in word_docs:
+        word_doc.update({ 'doc_id': doc.id })
+
+    doc.worddoc_set.bulk_create(
             [WordDoc(**word_doc) for word_doc in word_docs]
             )
 
