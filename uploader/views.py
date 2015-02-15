@@ -3,10 +3,12 @@ from django.views.generic.edit import CreateView, ModelFormMixin, UpdateView
 from django.views.generic.list import ListView
 from django.http import HttpResponseRedirect
 
+from salient.mixins import LoginRequiredMixin
+
 from .models import *
 from .forms import *
 
-class VolumeCreateView(CreateView):
+class VolumeCreateView(LoginRequiredMixin, CreateView):
   form_class = VolumeForm
   template_name = 'uploader/volume/create_form.html'
   success_url = '/uploader/'
@@ -20,17 +22,19 @@ class VolumeCreateView(CreateView):
 
     return super(ModelFormMixin, self).form_valid(form)
 
-class VolumeListView(ListView):
+class VolumeListView(LoginRequiredMixin, ListView):
   template_name = 'uploader/volume/list.html'
   model = Volume
 
-class VolumeUpdateView(UpdateView):
+
+class VolumeUpdateView(LoginRequiredMixin, UpdateView):
   template_name = 'uploader/volume/update.html'
   success_url = '/uploader/'
   model = Volume
   form_class = VolumeUpdateForm
 
-class DocCreateView(CreateView):
+
+class DocCreateView(LoginRequiredMixin, CreateView):
   form_class = DocForm
   template_name = 'uploader/doc/create_form.html'
   success_url = '/uploader/'

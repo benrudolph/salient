@@ -4,9 +4,12 @@
 {% block content %}
 <div class="row">
     <div class="col-md-3">
-        <div data-bind="template: { name: 'accordion-sidebar-template',
-            foreach: volumes,
-            as: volume }"></div>
+        <div data-bind="template: {
+            name: 'accordion-sidebar-template',
+            foreach: volumes, as: 'volume' }"></div>
+    </div>
+    <div class="col-md-9">
+        <div data-bind="text: docs().ben"></div>
     </div>
 </div>
 {% endblock %}

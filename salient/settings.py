@@ -52,6 +52,7 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login'
 
 # Application definition
 
@@ -70,6 +71,8 @@ INSTALLED_APPS = (
     'accounts',
     'uploader',
     'analyzer',
+    'salient',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (

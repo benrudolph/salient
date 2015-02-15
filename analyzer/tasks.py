@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from salient.celery import app
-from uploader.models import WordDoc
+from salient.models import WordDoc
 
 from .utils import parse
 

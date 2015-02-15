@@ -1,18 +1,38 @@
 <script type="text/html" id="accordion-sidebar-template">
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <span data-bind="text: name"></span>
-        </a>
-      </h4>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" data-bind="attr: { 'id': 'heading-' + volume.id }">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse"
+                        data-parent="#accordion"
+                        aria-expanded="true"
+                        data-bind="attr: {
+                            href: '#collapse-' + volume.id,
+                            'aria-controls': 'collapse-' + volume.id
+                        }"
+                        >
+                    <span data-bind="text: volume.name"></span>
+                    </a>
+                </h4>
+            </div>
+            <div
+                class="panel-collapse collapse in"
+                role="tabpanel"
+                data-bind="attr: {
+                    'aria-labelledby': 'heading-' + volume.id,
+                    'id': 'collapse-' + volume.id
+                    } ">
+
+                    <div class="list-group"
+                        data-bind="template: { foreach: volume.doc_set, as: 'doc' }">
+
+                        <div class="list-group-item">
+                            <a data-bind="attr: { href: '#/doc/' + doc.id }, text: doc.name"></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-          mybody
-      </div>
-    </div>
-  </div>
-</div>
 </script>

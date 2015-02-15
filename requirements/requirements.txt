@@ -6,6 +6,8 @@ django-debug-toolbar
 django-crispy-forms
 django-bower
 django-redis
+djangorestframework
+markdown
 celery
 ipdb
 nltk

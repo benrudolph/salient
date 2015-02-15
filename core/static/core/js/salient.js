@@ -1,6 +1,6 @@
 window.Salient = {
     ViewModels: {},
+    VM: {},
     Models: {},
-    Constants: {},
     App: null
-}
+};

@@ -2,7 +2,7 @@ from django.test import TestCase
 from hashlib import sha224
 
 from accounts.models import User
-from uploader.models import Doc
+from salient.models import Doc
 
 class DocTest(TestCase):
     def setUp(self):

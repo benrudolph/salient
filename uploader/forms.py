@@ -3,7 +3,7 @@ from django import forms
 from salient.forms import *
 from crispy_forms.layout import Layout, Div
 
-from .models import *
+from salient.models import Volume, Doc
 
 class VolumeForm(SalientModelForm):
   def __init__(self, *args, **kwargs):
@@ -11,7 +11,8 @@ class VolumeForm(SalientModelForm):
     self.fields['docs'] = forms.ModelMultipleChoiceField(
       queryset=Doc.objects.all(),
       widget=forms.CheckboxSelectMultiple(),
-      help_text="Check documents to add them to the volume"
+      help_text="Check documents to add them to the volume",
+      required=False,
     )
 
   class Meta:
@@ -25,7 +26,8 @@ class VolumeUpdateForm(SalientModelForm):
     self.fields['docs'] = forms.ModelMultipleChoiceField(
       queryset=self.instance.doc_set.all(),
       widget=forms.CheckboxSelectMultiple(attrs={"checked":""}),
-      help_text="Uncheck documents to remove them from the volume"
+      help_text="Uncheck documents to remove them from the volume",
+      required=False,
     )
 
   def save(self, commit=True):
@@ -65,7 +67,7 @@ class DocForm(SalientModelForm):
     doc_type_data_bind = """
         value: docType
         """
-  
+
     widgets = {
       'doc_type': forms.Select(attrs={'data-bind': doc_type_data_bind}),
       'url': forms.TextInput(attrs={'data-bind': 'visible: showUrl'}),
