@@ -10,7 +10,7 @@ Salient.ViewModels.DocVisualize = function() {
 
 
     self.volumes = ko.observableArray([]);
-    self.docs = ko.observable([]);
+    self.doc = ko.observable({});
 
     /* Volume logic */
     self.addVolumes = function(volumes) {
@@ -34,7 +34,11 @@ Salient.ViewModels.DocVisualize = function() {
 
     /* Doc logic */
     self.fetchDoc = function(id, cb) {
-
+        $.get('/api/docs/' + id).success(function(doc) {
+            self.doc(doc)
+            if (cb)
+                cb(doc);
+        }).error(Salient.Utils.handleError);
     };
     /* End doc logic */
 
@@ -53,8 +57,24 @@ Salient.App = Sammy('#content', function() {
     })
 
 
-    this.get('#/doc/:id', function() {
-        console.log('doc route');
+    this.get('#volume/:vid/doc/:did', function() {
+        var did = this.params['did'];
+        var vid = this.params['vid'];
+
+        Salient.VM.fetchDoc(did);
+
+        Salient.Data.wordFreq(did)
+            .success(function(data) {
+                var options = _.clone(Salient.HC.WordFreq);
+                options.chart.renderTo = 'word-freq';
+
+                var chart = new Highcharts.Chart(options);
+
+                chart.xAxis.categories = _.map(data, function(d) { return d['word_stemmed']; });
+
+                chart.series[0].setData(_.map(data, function(d) { return d.freq; }, true));
+            }).error(Salient.Utils.handleError);
+
 
     });
 

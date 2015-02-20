@@ -19,11 +19,11 @@ class DocBasicSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 class DocDetailSerializer(serializers.ModelSerializer):
-    worddoc_set = WordDocSerializer(many=True, read_only=True)
+    # worddoc_set = WordDocSerializer(many=True, read_only=True)
 
     class Meta:
         model = Doc
-        fields = ('id', 'name', 'worddoc_set')
+        fields = ('id', 'name', 'text')
 
 
 class VolumeSerializer(serializers.ModelSerializer):

@@ -35,6 +35,8 @@ BOWER_INSTALLED_APPS = (
     'underscore',
     'knockout',
     'sammy',
+    'highcharts-release',
+    'd3',
 )
 
 BROKER_URL = 'redis://localhost:6379/0'

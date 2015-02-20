@@ -27,7 +27,7 @@
                         data-bind="template: { foreach: volume.doc_set, as: 'doc' }">
 
                         <div class="list-group-item">
-                            <a data-bind="attr: { href: '#/doc/' + doc.id }, text: doc.name"></a>
+                            <a data-bind="attr: { href: '#volume/' + volume.id + '/doc/' + doc.id }, text: doc.name"></a>
                         </div>
 
                     </div>

@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block css %}
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-md-3">
@@ -9,12 +12,19 @@
             foreach: volumes, as: 'volume' }"></div>
     </div>
     <div class="col-md-9">
-        <div data-bind="text: docs().ben"></div>
+        <h1 data-bind="text: 'Document: ' + doc().name"></h1>
+        <h3>Word Frequency</h3>
+        <div id="word-freq" style="height: 300px"></div>
+        <h3>XRay</h3>
+        <h3>Document Text</h3>
+        <p data-bind="html: Salient.Utils.textToParagraph(doc().text)"></p>
     </div>
 </div>
 {% endblock %}
 
 {% block js %}{{ block.super }}
+    <script src="{% static 'highcharts-release/highcharts.js' %}"></script>
+    <script src="{% static 'visualize/js/hc/word_freq.js' %}"></script>
     <script src="{% static 'visualize/js/visualize.js' %}"></script>
 {% endblock %}
 {% block js_templates %}
