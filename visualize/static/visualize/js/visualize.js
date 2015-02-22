@@ -1,6 +1,7 @@
 $(document).ready(function() {
     Salient.VM = new Salient.ViewModels.DocVisualize()
     ko.applyBindings(Salient.VM);
+    Sammy.RegularFormSubmitFix(Salient.App);
     Salient.App.run();
 });
 
@@ -14,6 +15,7 @@ Salient.ViewModels.DocVisualize = function() {
     self.wordFreqData = {};
     self.wordFreq = null;
     self.wordType = 'word_stemmed';
+    self.xrayBuckets = 100;
 
 
     self.filterCategories = function(model, e) {
@@ -40,6 +42,55 @@ Salient.ViewModels.DocVisualize = function() {
                 .value()
         })
 
+    };
+
+    self.fetchXRay = function(formEl) {
+        var q = $(formEl).serializeArray()[0].value;
+
+        var success = function(raw) {
+            var mapping,
+                reduceFn,
+                options = _.clone(Salient.HC.XRay),
+                data = [];
+
+
+            reduceFn = function(memo, d) {
+                // [X, Y, VAL]
+                var bucket
+                    X = 0,
+                    Y = 1,
+                    VAL = 2;
+
+                bucket = Math.floor(mapping(d.position));
+
+                existing = _.find(memo, function(p) { return p[X] === bucket });
+
+                if (existing) {
+                    existing[VAL] ++;
+                } else {
+                    memo.push([bucket, 0, 1]);
+                }
+                return memo;
+            }
+
+            mapping = d3.scale.linear()
+                .domain([raw.min_position, raw.max_position])
+                .range([0, self.xrayBuckets]);
+
+            data = _.reduce(raw.positions, reduceFn, [])
+
+            //options.xAxis.categories =
+            //    _.map(data, function(d) { return d['word_stemmed']; });
+            options.chart.renderTo = 'xray';
+            console.log(data);
+
+            self.xray = new Highcharts.Chart(options);
+            self.xray.addSeries({ name: 'Words in document', data: data })
+        }
+
+        Salient.Data.xray(self.doc().id, q)
+            .success(success)
+            .fail(Salient.Utils.handleError);
     };
 
     /* Volume logic */

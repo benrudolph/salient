@@ -13,21 +13,38 @@
     </div>
     <div class="col-md-9">
         <h1 data-bind="text: 'Document: ' + doc().name"></h1>
-        <h3>Word Frequency</h3>
-        <figure id="word-freq" style="height: 300px"></figure>
 
         <div class="row">
-            <div class="col-md-8">
-                <div class="figure-controls">
+            <div class="col-md-12">
+                <h3>Word Frequency</h3>
+                <figure id="word-freq" style="height: 300px"></figure>
+                <form class="figure-controls form-inline">
+                    <label for="word-freq-filter">Filter</label>
                     <input
-                    placeholder="Filter words"
-                    type="text"
-                    class="form-control filter-categories"
-                    data-bind="event: { keyup: filterCategories }"/>
-                </div>
+                        type="text"
+                        id="word-freq-filter"
+                        class="form-control filter-categories"
+                        data-bind="event: { keyup: filterCategories }"/>
+                </form>
             </div>
         </div>
-        <h3>XRay</h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>XRay</h3>
+                <figure id="xray" style="height: 300px"></figure>
+
+                <form data-bind="submit: fetchXRay"
+                    class="figure-controls form-inline">
+
+                    <div class="form-group">
+                        <label for="xray-query">Query</label>
+                        <input id="xray-query" name="xray-query" type="text" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
         <h3>Document Text</h3>
         <p data-bind="html: Salient.Utils.textToParagraph(doc().text)"></p>
     </div>
@@ -35,8 +52,11 @@
 {% endblock %}
 
 {% block js %}{{ block.super }}
+    <script src="{% static 'd3/d3.js' %}"></script>
     <script src="{% static 'highcharts-release/highcharts.js' %}"></script>
+    <script src="{% static 'highcharts-release/modules/heatmap.js' %}"></script>
     <script src="{% static 'visualize/js/hc/word_freq.js' %}"></script>
+    <script src="{% static 'visualize/js/hc/xray.js' %}"></script>
     <script src="{% static 'visualize/js/visualize.js' %}"></script>
 {% endblock %}
 {% block js_templates %}
