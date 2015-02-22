@@ -11,6 +11,36 @@ Salient.ViewModels.DocVisualize = function() {
 
     self.volumes = ko.observableArray([]);
     self.doc = ko.observable({});
+    self.wordFreqData = {};
+    self.wordFreq = null;
+    self.wordType = 'word_stemmed';
+
+
+    self.filterCategories = function(model, e) {
+        var xAxis = self.wordFreq.xAxis[0],
+            q = $(e.currentTarget).val(),
+            filterFn;
+
+        filterFn = function(d) {
+            return d[self.wordType].toLowerCase().startsWith(q.toLowerCase());
+        }
+
+
+
+        Salient.VM.wordFreq.series[0].setData(
+                _.chain(self.wordFreqData)
+                .filter(filterFn)
+                .map(function(d) { return d.freq; }, true)
+                .value());
+
+        xAxis.update({
+            categories: _.chain(self.wordFreqData)
+                .filter(filterFn)
+                .map(function(d) { return d[self.wordType]; })
+                .value()
+        })
+
+    };
 
     /* Volume logic */
     self.addVolumes = function(volumes) {
@@ -66,13 +96,16 @@ Salient.App = Sammy('#content', function() {
         Salient.Data.wordFreq(did)
             .success(function(data) {
                 var options = _.clone(Salient.HC.WordFreq);
+
+                options.xAxis.categories =
+                    _.map(data, function(d) { return d['word_stemmed']; });
                 options.chart.renderTo = 'word-freq';
 
-                var chart = new Highcharts.Chart(options);
+                Salient.VM.wordFreqData = data
+                Salient.VM.wordFreq = new Highcharts.Chart(options);
+                Salient.VM.wordFreq.series[0].setData(
+                    _.map(data, function(d) { return d.freq; }, true));
 
-                chart.xAxis.categories = _.map(data, function(d) { return d['word_stemmed']; });
-
-                chart.series[0].setData(_.map(data, function(d) { return d.freq; }, true));
             }).error(Salient.Utils.handleError);
 
 

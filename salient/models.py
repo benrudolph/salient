@@ -53,3 +53,4 @@ class WordDoc(models.Model):
   word_stemmed = models.CharField(max_length=100, null=True)
   word_raw = models.CharField(max_length=100, null=True)
   position = models.IntegerField(null=True)
+  is_stopword = models.BooleanField(default=False, blank=True)

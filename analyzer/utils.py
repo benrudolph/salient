@@ -1,5 +1,9 @@
+import re
 from nltk import word_tokenize
 from nltk.stem.porter import PorterStemmer
+from nltk.corpus import stopwords
+
+IS_WORD = re.compile('\w+')
 
 def parse(text):
     """Returns a list of dictionaries. Each dictionary contains:
@@ -20,7 +24,9 @@ def parse(text):
         result.append({
             'word_stemmed': stemmer.stem(token),
             'word_raw': token,
-            'position': i
+            'position': i,
+            'is_stopword': not IS_WORD.search(token) or
+                           token in stopwords.words('english')
             })
 
     return result

@@ -7,6 +7,7 @@ Salient.HC.WordFreq =
             text: 'Word Frequency'
         },
         xAxis: {
+            type: 'category',
             categories: []
         },
         yAxis: {

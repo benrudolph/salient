@@ -14,7 +14,19 @@
     <div class="col-md-9">
         <h1 data-bind="text: 'Document: ' + doc().name"></h1>
         <h3>Word Frequency</h3>
-        <div id="word-freq" style="height: 300px"></div>
+        <figure id="word-freq" style="height: 300px"></figure>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="figure-controls">
+                    <input
+                    placeholder="Filter words"
+                    type="text"
+                    class="form-control filter-categories"
+                    data-bind="event: { keyup: filterCategories }"/>
+                </div>
+            </div>
+        </div>
         <h3>XRay</h3>
         <h3>Document Text</h3>
         <p data-bind="html: Salient.Utils.textToParagraph(doc().text)"></p>

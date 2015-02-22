@@ -19,8 +19,10 @@ class DocWordFrequencyAPIView(APIView):
         doc = self.get_object(pk)
 
         frequencies = doc.worddoc_set \
+            .filter(is_stopword=False) \
             .values('word_stemmed') \
             .annotate(freq=Count('word_stemmed')) \
+            .filter(freq__gt=5) \
             .order_by('-freq')
 
         return Response(frequencies)
