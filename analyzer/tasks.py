@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from salient.celery import app
 from salient.models import WordDoc
 
-from .utils import parse
+from .utils import parse, compute_sentiment
 
 @app.task
 def parse_doc(doc):
@@ -16,3 +16,9 @@ def parse_doc(doc):
             [WordDoc(**word_doc) for word_doc in word_docs]
             )
 
+    sentiment = compute_sentiment(doc.text)
+
+    if sentiment:
+        doc.sentiment_neg = sentiment['neg']
+        doc.sentiment_pos = sentiment['pos']
+        doc.save()

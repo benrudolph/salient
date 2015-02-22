@@ -15,6 +15,8 @@ class Doc(models.Model):
   name = models.CharField(max_length=200)
   volumes = models.ManyToManyField(Volume, blank=True)
   user = models.ForeignKey(User)
+  sentiment_pos = models.DecimalField(max_digits=6, decimal_places=5, blank=True, null=True)
+  sentiment_neg = models.DecimalField(max_digits=6, decimal_places=5, blank=True, null=True)
 
   URL = 'UR'
   TEXT = 'TX'

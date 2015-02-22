@@ -11,3 +11,6 @@ markdown
 celery
 ipdb
 nltk
+numpy
+scipy
+scikit-learn
