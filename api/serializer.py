@@ -32,4 +32,3 @@ class VolumeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Volume
         fields = ('id', 'name', 'doc_set', 'user')
-

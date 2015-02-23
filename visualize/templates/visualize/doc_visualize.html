@@ -12,41 +12,9 @@
             foreach: volumes, as: 'volume' }"></div>
     </div>
     <div class="col-md-9">
-        <h1 data-bind="text: 'Document: ' + doc().name"></h1>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Word Frequency</h3>
-                <figure id="word-freq" style="height: 300px"></figure>
-                <form class="figure-controls form-inline">
-                    <label for="word-freq-filter">Filter</label>
-                    <input
-                        type="text"
-                        id="word-freq-filter"
-                        class="form-control filter-categories"
-                        data-bind="event: { keyup: filterCategories }"/>
-                </form>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3>XRay</h3>
-                <figure id="xray" style="height: 300px"></figure>
-
-                <form data-bind="submit: fetchXRay"
-                    class="figure-controls form-inline">
-
-                    <div class="form-group">
-                        <label for="xray-query">Query</label>
-                        <input id="xray-query" name="xray-query" type="text" class="form-control" />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
-        </div>
-        <h3>Document Text</h3>
-        <p data-bind="html: Salient.Utils.textToParagraph(doc().text)"></p>
+        <div data-bind="template: {
+            name: display,
+            }"></div>
     </div>
 </div>
 {% endblock %}
@@ -61,5 +29,7 @@
 {% endblock %}
 {% block js_templates %}
     {% include "core/js_templates/accordion_sidebar.html" %}
+    {% include "core/js_templates/document_content.html" %}
+    {% include "core/js_templates/volume_content.html" %}
 {% endblock %}
 

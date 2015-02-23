@@ -12,11 +12,12 @@ Salient.ViewModels.DocVisualize = function() {
 
     self.volumes = ko.observableArray([]);
     self.doc = ko.observable({});
+    self.volume = ko.observable({});
     self.wordFreqData = {};
     self.wordFreq = null;
     self.wordType = 'word_stemmed';
     self.xrayBuckets = 100;
-
+    self.display = ko.observable(Salient.Constants.DOC_CONTENT);
 
     self.filterCategories = function(model, e) {
         var xAxis = self.wordFreq.xAxis[0],
@@ -106,10 +107,16 @@ Salient.ViewModels.DocVisualize = function() {
 
             if (cb)
                 cb(volumes);
-        }).error(function(xhr, msg, status) {
-            console.log(status);
-        });
+        }).error(Salient.Utils.handleError);
 
+    };
+
+    self.fetchVolume = function(id, cb) {
+        $.get('/api/volumes/' + id).success(function(volume) {
+            self.volume(volume);
+            if (cb)
+                cb(volume);
+        }).error(Salient.Utils.handleError);
     };
     /* End volume logic */
 
@@ -130,17 +137,24 @@ Salient.App = Sammy('#content', function() {
     var initialized = false;
 
     this.before(function() {
+        var self = this;
         if (!initialized) {
             Salient.VM.fetchVolumes(function(volumes) {
                 initialized = true;
+
+                if ((self.path === '/' || !self.path) && volumes.length) {
+                    self.redirect('#volume/' + volumes[0].id);
+                }
             });
         }
     })
 
 
-    this.get('#volume/:vid/doc/:did', function() {
+    this.get('#volumes/:vid/docs/:did', function() {
         var did = this.params['did'];
         var vid = this.params['vid'];
+
+        Salient.VM.display(Salient.Constants.DOC_CONTENT);
 
         Salient.VM.fetchDoc(did);
 
@@ -162,9 +176,16 @@ Salient.App = Sammy('#content', function() {
 
     });
 
+    this.get('#volumes/:vid', function() {
+        var vid = this.params['vid'];
+
+        Salient.VM.display(Salient.Constants.VOL_CONTENT);
+
+        Salient.VM.fetchVolume(vid);
+    });
+
     // Default route
     this.get('', function() {
-        console.log('default')
     });
 })
 

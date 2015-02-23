@@ -1,13 +1,11 @@
 <script type="text/html" id="accordion-sidebar-template">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" data-bind="attr: { 'id': 'heading-' + volume.id }">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse"
-                        data-parent="#accordion"
-                        aria-expanded="true"
+                    <a
                         data-bind="attr: {
-                            href: '#collapse-' + volume.id,
+                            href: '#volumes/' + volume.id,
                             'aria-controls': 'collapse-' + volume.id
                         }"
                         >
@@ -27,7 +25,7 @@
                         data-bind="template: { foreach: volume.doc_set, as: 'doc' }">
 
                         <div class="list-group-item">
-                            <a data-bind="attr: { href: '#volume/' + volume.id + '/doc/' + doc.id }, text: doc.name"></a>
+                            <a data-bind="attr: { href: '#volumes/' + volume.id + '/docs/' + doc.id }, text: doc.name"></a>
                         </div>
 
                     </div>

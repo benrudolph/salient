@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .serializer import DocSerializer, DocDetailSerializer, VolumeSerializer
-
 class DocAPIView(APIView):
     """
     List all docs.
@@ -34,4 +33,17 @@ class VolumeAPIView(APIView):
     def get(self, request, format=None):
         volumes = Volume.objects.filter(user=request.user)
         serializer = VolumeSerializer(volumes, many=True)
+        return Response(serializer.data)
+
+class VolumeDetailAPIView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Volume.objects.get(pk=pk)
+        except Doc.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        volume = self.get_object(pk)
+        serializer = VolumeSerializer(volume)
         return Response(serializer.data)

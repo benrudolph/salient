@@ -9,7 +9,13 @@ window.Salient = {
     // Functions to get data
     Data: {},
     // Highcharts Objects
-    HC: {}
+    HC: {},
+
+    Constants: {
+        DOC_CONTENT: 'document-content',
+        VOL_CONTENT: 'volume-content',
+    }
+
 };
 
 /* Use of publish and subscribe */
